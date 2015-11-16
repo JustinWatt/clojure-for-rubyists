@@ -1,0 +1,136 @@
+#+REVEAL_TRANS: none
+#+REVEAL_EXTRA_CSS: file:///Users/Justin/Repos/talks/style.css
+#+OPTIONS: toc:0
+#+OPTIONS: reveal_center:t reveal_progress:t reveal_history:t reveal_control:t
+#+OPTIONS: reveal_mathjax:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t num:nil
+#+OPTIONS: reveal_width:1200 reveal_height:800
+#+REVEAL_THEME: league
+#+REVEAL_HLEVEL: 999
+
+#+TITLE: Clojure for Rubyists!!
+#+AUTHOR: @JustinJWatt
+#+EMAIL: 
+
+* Clojure
+- [[./img/cljlogo.png]]
+** A LISP that targets the JVM
+- [[./img/jmccarthy.jpg]]
+
+
+** Syntax Primer
+  #+ATTR_REVEAL: :frag (appear)
+- src_ruby[:exports code]{puts("abc")}
+- src_clojure[:exports code]{(println "abc")}
+- src_clojure[:exports code]{(function arg1 arg2)}
+
+* Functional Programming
+The building block of a functional programming language is the function.
+
+** First Class Functions
+Can be passed into a function or returned from a function
+
+** Higher Order Functions
+Functions that take another function as a parameter
+
+  #+ATTR_REVEAL: :frag (appear)
+  - src_clojure[:exports code]{(inc 1)}
+    {{{results(;=> =2=)}}}  
+  - src_clojure[:exports code]{(map inc [1 2 3])}   
+    {{{results(;=> =[2 3 4]=)}}}
+  - src_ruby[:exports code]{[1, 2, 3].map(&:next)}      
+    {{{results(;=> =[2\, 3\, 4]=)}}}
+
+
+
+** Immutable Data
+Any mutation of data is returned as a new value instead of mutating the original
+value.
+
+#+ATTR_REVEAL: :frag (appear)
+- src_clojure[:exports code]{(def a 1)} 
+  {{{results(=#'user/a=)}}}
+- src_clojure[:exports code]{(+ a 1) } 
+  {{{results(;=> =2=)}}}
+- src_clojure[:exports code]{a} 
+  {{{results(;=> =1=)}}}
+
+** Pure functions
+- Values In -> Values Out
+- No Side Effects
+
+** Referential Transparency 
+- A function can be substituted with it's value without affecting the program. 
+
+** Persistent Data Structures
+#+BEGIN_SRC clojure +n
+
+  (def base-list [1 2 3])
+  (def a-list (cons "a" base-list))
+  (def b-list (cons "b" base-list))
+  
+  (= (rest a-list) (rest b-list))
+  (identical? (rest a-list) (rest b-list))
+#+END_SRC
+
+
+** s-expressions
+The primary unit of computation in clojure is an s-expression.
+
+
+
+** Ruby!
+#+BEGIN_SRC ruby +n
+  a = 5
+
+  def add(a,b)
+    a + b
+  end
+
+  class Cat
+    def initialize(name, age)
+      @name = name
+      @age  = age
+    end
+
+    def meow
+      puts "meow"
+    end
+
+    def old?
+      @age > 15
+    end
+
+    def describe
+      if old?
+        puts name " is an an old ass cat"
+      else
+        puts "Practically a kitty"
+      end
+    end
+  end
+
+#+END_SRC
+
+** Clojure!
+#+BEGIN_SRC clojure +n 
+(def a 5)
+
+(defn add [a b]
+  (+ a b))
+  
+(defn cat [name age]
+    (let [old? (> age 15)]
+      {:meow "meow"
+       :describe (if old?
+                   (fn [] (str name " is an old ass cat!"))
+                   (fn [] (str name " is practically a kitty.")))
+       :old? (fn [] old?) }) )
+
+
+
+(def mittens (cat "Mittens" 16))
+
+((:describe mittens))
+
+
+#+END_SRC
