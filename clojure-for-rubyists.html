@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>Clojure for Rubyists!!</title>
-<meta name="author" content="(@JustinJWatt)"/>
+<title>Tour of Clojure</title>
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/league.css" id="theme"/>
-<link rel="stylesheet" href="file:///Users/Justin/Repos/talks/style.css"/>
+<link rel="stylesheet" href="file:///Users/Justin/Repos/talks/clojure-for-rubyists/style.css"/>
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
     if( window.location.search.match( /print-pdf/gi ) ) {
@@ -22,8 +21,8 @@
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide">
-<h1>Clojure for Rubyists!!</h1>
-<h2>@JustinJWatt</h2>
+<h1>Tour of Clojure</h1>
+<h2></h2>
 <h2><a href="mailto:"></a></h2>
 <h2></h2>
 </section>
@@ -35,6 +34,7 @@
 <li><img src="./img/cljlogo.png" alt="cljlogo.png" /></li>
 
 </ul>
+
 </section>
 </section>
 <section>
@@ -45,16 +45,17 @@
 
 </ul>
 
-
 </section>
 </section>
 <section>
 <section id="slide-orgheadline2">
 <h3 id="orgheadline2">Syntax Primer</h3>
 <ul>
-<li class="fragment appear"><code class="src src-ruby"><span style="color: #DCDCCC; font-weight: bold;">puts</span><span style="color: #DCDCCC;">(</span><span style="color: #CC9393;">"abc"</span><span style="color: #DCDCCC;">)</span>
+<li class="fragment appear"><code class="src src-ruby">add <span style="color: #BFEBBF;">1</span>, <span style="color: #BFEBBF;">2</span>
 </code></li>
-<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #93E0E3;">println</span> <span style="color: #CC9393;">"abc"</span><span style="color: #DCDCCC;">)</span>
+<li class="fragment appear"><code class="src src-ruby">add<span style="color: #DCDCCC;">(</span><span style="color: #BFEBBF;">1</span>, <span style="color: #BFEBBF;">2</span><span style="color: #DCDCCC;">)</span>
+</code></li>
+<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>+ <span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span><span style="color: #DCDCCC;">)</span>
 </code></li>
 <li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>function arg1 arg2<span style="color: #DCDCCC;">)</span>
 </code></li>
@@ -64,13 +65,10 @@
 </section>
 </section>
 <section>
-<section id="slide-orgheadline13">
-<h2 id="orgheadline13">Functional Programming</h2>
-<p>
-The building block of a functional programming language is the function.
-</p>
-
-</section>
+<section id="slide-orgheadline17">
+<h2 id="orgheadline17">Functional Programming</h2>
+<div class="outline-text-2" id="text-orgheadline17">
+</div></section>
 </section>
 <section>
 <section id="slide-orgheadline4">
@@ -89,10 +87,10 @@ Functions that take another function as a parameter
 </p>
 
 <ul>
-<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #93E0E3;">inc</span> <span style="color: #BFEBBF;">1</span><span style="color: #DCDCCC;">)</span>
+<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>inc <span style="color: #BFEBBF;">1</span><span style="color: #DCDCCC;">)</span>
 </code>
     ;=&gt; <code>2</code></li>
-<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #93E0E3;">map</span> <span style="color: #93E0E3;">inc</span> <span style="color: #BFEBBF;">[</span><span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span><span style="color: #BFEBBF;">]</span><span style="color: #DCDCCC;">)</span>
+<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>map inc <span style="color: #BFEBBF;">[</span><span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span><span style="color: #BFEBBF;">]</span><span style="color: #DCDCCC;">)</span>
 </code>   
     ;=&gt; <code>[2 3 4]</code></li>
 <li class="fragment appear"><code class="src src-ruby"><span style="color: #DCDCCC;">[</span><span style="color: #BFEBBF;">1</span>, <span style="color: #BFEBBF;">2</span>, <span style="color: #BFEBBF;">3</span><span style="color: #DCDCCC;">]</span>.map<span style="color: #DCDCCC;">(</span>&amp;<span style="color: #BFEBBF;">:next</span><span style="color: #DCDCCC;">)</span>
@@ -101,23 +99,21 @@ Functions that take another function as a parameter
 
 </ul>
 
-
-
 </section>
 </section>
 <section>
 <section id="slide-orgheadline6">
 <h3 id="orgheadline6">Immutable Data</h3>
 <p>
-Any mutation of data is returned as a new value instead of mutating the original
-value.
+Instead of mutating a value in place, a new copy of the structure
+is created with the mutation applied
 </p>
 
 <ul>
 <li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">a</span> <span style="color: #BFEBBF;">1</span><span style="color: #DCDCCC;">)</span>
 </code> 
   <code>#'user/a</code></li>
-<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #93E0E3;">+</span> a <span style="color: #BFEBBF;">1</span><span style="color: #DCDCCC;">)</span>
+<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>+ a <span style="color: #BFEBBF;">1</span><span style="color: #DCDCCC;">)</span>
 </code> 
   ;=&gt; <code>2</code></li>
 <li class="fragment appear"><code class="src src-clojure">a
@@ -130,7 +126,27 @@ value.
 </section>
 <section>
 <section id="slide-orgheadline7">
-<h3 id="orgheadline7">Pure functions</h3>
+<h3 id="orgheadline7">Persistent Data Structures</h3>
+<ul>
+<li><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">base-list</span> <span style="color: #BFEBBF;">[</span><span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span><span style="color: #BFEBBF;">]</span><span style="color: #DCDCCC;">)</span>
+</code></li>
+
+<li><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">a-list</span> <span style="color: #BFEBBF;">(</span>cons <span style="color: #CC9393;">"a"</span> base-list<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+</code></li>
+<li><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">b-list</span> <span style="color: #BFEBBF;">(</span>cons <span style="color: #CC9393;">"b"</span> base-list<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+</code></li>
+
+<li><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>identical? <span style="color: #BFEBBF;">(</span>rest a-list<span style="color: #BFEBBF;">)</span> <span style="color: #BFEBBF;">(</span>rest b-list<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+</code>
+    ;=&gt; <code>true</code></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline8">
+<h3 id="orgheadline8">Pure functions</h3>
 <ul>
 <li>Values In -&gt; Values Out</li>
 <li>No Side Effects</li>
@@ -140,8 +156,8 @@ value.
 </section>
 </section>
 <section>
-<section id="slide-orgheadline8">
-<h3 id="orgheadline8">Referential Transparency</h3>
+<section id="slide-orgheadline9">
+<h3 id="orgheadline9">Referential Transparency</h3>
 <ul>
 <li>A function can be substituted with it's value without affecting the program.</li>
 
@@ -150,66 +166,42 @@ value.
 </section>
 </section>
 <section>
-<section id="slide-orgheadline9">
-<h3 id="orgheadline9">Persistent Data Structures</h3>
-<div class="org-src-container">
-
-<pre  class="src src-clojure"><span class="linenr">1: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">base-list</span> <span style="color: #BFEBBF;">[</span><span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span><span style="color: #BFEBBF;">]</span><span style="color: #DCDCCC;">)</span>
-<span class="linenr">2: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">a-list</span> <span style="color: #BFEBBF;">(</span>cons <span style="color: #CC9393;">"a"</span> base-list<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
-<span class="linenr">3: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">b-list</span> <span style="color: #BFEBBF;">(</span>cons <span style="color: #CC9393;">"b"</span> base-list<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
-<span class="linenr">4: </span>
-<span class="linenr">5: </span><span style="color: #DCDCCC;">(</span><span style="color: #93E0E3;">=</span> <span style="color: #BFEBBF;">(</span><span style="color: #93E0E3;">rest</span> a-list<span style="color: #BFEBBF;">)</span> <span style="color: #BFEBBF;">(</span><span style="color: #93E0E3;">rest</span> b-list<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
-<span class="linenr">6: </span><span style="color: #DCDCCC;">(</span><span style="color: #93E0E3;">identical?</span> <span style="color: #BFEBBF;">(</span><span style="color: #93E0E3;">rest</span> a-list<span style="color: #BFEBBF;">)</span> <span style="color: #BFEBBF;">(</span><span style="color: #93E0E3;">rest</span> b-list<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
-</pre>
-</div>
-
-
-</section>
-</section>
-<section>
 <section id="slide-orgheadline10">
 <h3 id="orgheadline10">s-expressions</h3>
-<p>
-The primary unit of computation in clojure is an s-expression.
-</p>
+<ul>
+<li class="fragment appear">The primary unit of computation in Clojure is the s-expression.</li>
 
+<li class="fragment appear"><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>function-name arg1 arg2 arg3<span style="color: #DCDCCC;">)</span>
+</code></li>
 
+<li class="fragment appear">Functions are applied and the expressions reduce down to a single
+value</li>
+<li class="fragment appear">Expressions are nested to achieve more complex effects
+<ul>
+<li><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>reduce + <span style="color: #BFEBBF;">(</span>filter odd? <span style="color: #D0BF8F;">(</span>map inc <span style="color: #93E0E3;">[</span><span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span> <span style="color: #BFEBBF;">4</span><span style="color: #93E0E3;">]</span><span style="color: #D0BF8F;">)</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+</code></li>
+<li><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>reduce + <span style="color: #BFEBBF;">(</span>filter odd? <span style="color: #D0BF8F;">[</span><span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span> <span style="color: #BFEBBF;">4</span> <span style="color: #BFEBBF;">5</span><span style="color: #D0BF8F;">]</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+</code></li>
+<li><code class="src src-clojure"><span style="color: #DCDCCC;">(</span>reduce + <span style="color: #BFEBBF;">[</span><span style="color: #BFEBBF;">3</span> <span style="color: #BFEBBF;">5</span><span style="color: #BFEBBF;">]</span><span style="color: #DCDCCC;">)</span>
+</code></li>
+<li><code class="src src-clojure"><span style="color: #BFEBBF;">8</span>
+</code></li>
+
+</ul></li>
+
+</ul>
 
 </section>
 </section>
 <section>
 <section id="slide-orgheadline11">
-<h3 id="orgheadline11">Ruby!</h3>
+<h3 id="orgheadline11">Transducers</h3>
 <div class="org-src-container">
 
-<pre  class="src src-ruby"><span class="linenr"> 7: </span>a = <span style="color: #BFEBBF;">5</span>
-<span class="linenr"> 8: </span>
-<span class="linenr"> 9: </span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">add</span><span style="color: #DCDCCC;">(</span>a,b<span style="color: #DCDCCC;">)</span>
-<span class="linenr">10: </span>  a + b
-<span class="linenr">11: </span><span style="color: #F0DFAF; font-weight: bold;">end</span>
-<span class="linenr">12: </span>
-<span class="linenr">13: </span><span style="color: #F0DFAF; font-weight: bold;">class</span> <span style="color: #7CB8BB;">Cat</span>
-<span class="linenr">14: </span>  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">initialize</span><span style="color: #DCDCCC;">(</span>name, age<span style="color: #DCDCCC;">)</span>
-<span class="linenr">15: </span>    <span style="color: #DFAF8F;">@name</span> = name
-<span class="linenr">16: </span>    <span style="color: #DFAF8F;">@age</span>  = age
-<span class="linenr">17: </span>  <span style="color: #F0DFAF; font-weight: bold;">end</span>
-<span class="linenr">18: </span>
-<span class="linenr">19: </span>  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">meow</span>
-<span class="linenr">20: </span>    <span style="color: #DCDCCC; font-weight: bold;">puts</span> <span style="color: #CC9393;">"meow"</span>
-<span class="linenr">21: </span>  <span style="color: #F0DFAF; font-weight: bold;">end</span>
-<span class="linenr">22: </span>
-<span class="linenr">23: </span>  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">old?</span>
-<span class="linenr">24: </span>    <span style="color: #DFAF8F;">@age</span> &gt; <span style="color: #BFEBBF;">15</span>
-<span class="linenr">25: </span>  <span style="color: #F0DFAF; font-weight: bold;">end</span>
-<span class="linenr">26: </span>
-<span class="linenr">27: </span>  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">describe</span>
-<span class="linenr">28: </span>    <span style="color: #F0DFAF; font-weight: bold;">if</span> old?
-<span class="linenr">29: </span>      <span style="color: #DCDCCC; font-weight: bold;">puts</span> name <span style="color: #CC9393;">" is an an old ass cat"</span>
-<span class="linenr">30: </span>    <span style="color: #F0DFAF; font-weight: bold;">else</span>
-<span class="linenr">31: </span>      <span style="color: #DCDCCC; font-weight: bold;">puts</span> <span style="color: #CC9393;">"Practically a kitty"</span>
-<span class="linenr">32: </span>    <span style="color: #F0DFAF; font-weight: bold;">end</span>
-<span class="linenr">33: </span>  <span style="color: #F0DFAF; font-weight: bold;">end</span>
-<span class="linenr">34: </span><span style="color: #F0DFAF; font-weight: bold;">end</span>
+<pre  class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">-&gt;&gt;</span> <span style="color: #BFEBBF;">[</span><span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span> <span style="color: #BFEBBF;">4</span><span style="color: #BFEBBF;">]</span>
+     <span style="color: #BFEBBF;">(</span>map inc<span style="color: #BFEBBF;">)</span>
+     <span style="color: #BFEBBF;">(</span>filter odd?<span style="color: #BFEBBF;">)</span> 
+     <span style="color: #BFEBBF;">(</span>reduce +<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
 </pre>
 </div>
 
@@ -217,27 +209,119 @@ The primary unit of computation in clojure is an s-expression.
 </section>
 <section>
 <section id="slide-orgheadline12">
-<h3 id="orgheadline12">Clojure!</h3>
+<h3 id="orgheadline12">Data Structures</h3>
+<ul>
+<li class="fragment appear">List: '(1 2 3 4)
+<ul>
+<li>Items are added to the front of a list</li>
+
+</ul></li>
+<li class="fragment appear">Vector: <code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #BFEBBF;">[</span><span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">2</span> <span style="color: #BFEBBF;">3</span> <span style="color: #BFEBBF;">4</span><span style="color: #BFEBBF;">]</span> <span style="color: #BFEBBF;">0</span><span style="color: #DCDCCC;">)</span>
+</code>
+<ul>
+<li>;=&gt; 1</li>
+
+</ul></li>
+<li class="fragment appear">Map: {:id 1 :name "Cen Cal Ruby"}
+<ul>
+<li><code class="src src-clojure"><span style="color: #DCDCCC;">(</span><span style="color: #BFEBBF;">:name</span> <span style="color: #BFEBBF;">{</span><span style="color: #BFEBBF;">:id</span> <span style="color: #BFEBBF;">1</span> <span style="color: #BFEBBF;">:name</span> <span style="color: #CC9393;">"Cen Cal Ruby"</span>
+</code>)}</li>
+<li>;=&gt; "Cen Cal Ruby"</li>
+
+</ul></li>
+<li class="fragment appear">Set: #{ :this :is :a :set }</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline13">
+<h3 id="orgheadline13">The Good</h3>
+<ul>
+<li>s-expressions</li>
+<li>Tooling</li>
+<li>the JVM</li>
+<li>Really active community</li>
+<li>Excellent support for asynchronous programming</li>
+<li>Clojurescript!</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline14">
+<h3 id="orgheadline14">The Bad</h3>
+<ul>
+<li>the JVM</li>
+<li>Documentation is a struggle</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline15">
+<h3 id="orgheadline15">Ruby!</h3>
 <div class="org-src-container">
 
-<pre  class="src src-clojure"><span class="linenr">35: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">a</span> <span style="color: #BFEBBF;">5</span><span style="color: #DCDCCC;">)</span>
-<span class="linenr">36: </span>
-<span class="linenr">37: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defn</span> <span style="color: #93E0E3;">add</span> <span style="color: #BFEBBF;">[</span>a b<span style="color: #BFEBBF;">]</span>
-<span class="linenr">38: </span>  <span style="color: #BFEBBF;">(</span><span style="color: #93E0E3;">+</span> a b<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
-<span class="linenr">39: </span>
-<span class="linenr">40: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defn</span> <span style="color: #93E0E3;">cat</span> <span style="color: #BFEBBF;">[</span>name age<span style="color: #BFEBBF;">]</span>
-<span class="linenr">41: </span>    <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #D0BF8F;">[</span>old? <span style="color: #93E0E3;">(</span><span style="color: #93E0E3;">&gt;</span> age <span style="color: #BFEBBF;">15</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">]</span>
-<span class="linenr">42: </span>      <span style="color: #D0BF8F;">{</span><span style="color: #BFEBBF;">:meow</span> <span style="color: #CC9393;">"meow"</span>
-<span class="linenr">43: </span>       <span style="color: #BFEBBF;">:describe</span> <span style="color: #93E0E3;">(</span><span style="color: #F0DFAF; font-weight: bold;">if</span> old?
-<span class="linenr">44: </span>                   <span style="color: #9FC59F;">(</span><span style="color: #F0DFAF; font-weight: bold;">fn</span> <span style="color: #94BFF3;">[]</span> <span style="color: #94BFF3;">(</span><span style="color: #93E0E3;">str</span> <span style="color: #93E0E3;">name</span> <span style="color: #CC9393;">" is an old ass cat!"</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span>
-<span class="linenr">45: </span>                   <span style="color: #9FC59F;">(</span><span style="color: #F0DFAF; font-weight: bold;">fn</span> <span style="color: #94BFF3;">[]</span> <span style="color: #94BFF3;">(</span><span style="color: #93E0E3;">str</span> <span style="color: #93E0E3;">name</span> <span style="color: #CC9393;">" is practically a kitty."</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span>
-<span class="linenr">46: </span>       <span style="color: #BFEBBF;">:old?</span> <span style="color: #93E0E3;">(</span><span style="color: #F0DFAF; font-weight: bold;">fn</span> <span style="color: #9FC59F;">[]</span> old?<span style="color: #93E0E3;">)</span> <span style="color: #D0BF8F;">}</span><span style="color: #BFEBBF;">)</span> <span style="color: #DCDCCC;">)</span>
-<span class="linenr">47: </span>
-<span class="linenr">48: </span>
-<span class="linenr">49: </span>
-<span class="linenr">50: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">mittens</span> <span style="color: #BFEBBF;">(</span>cat <span style="color: #CC9393;">"Mittens"</span> <span style="color: #BFEBBF;">16</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
-<span class="linenr">51: </span>
-<span class="linenr">52: </span><span style="color: #DCDCCC;">(</span><span style="color: #BFEBBF;">(</span><span style="color: #BFEBBF;">:describe</span> mittens<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<pre  class="src src-ruby"><span class="linenr"> 1: </span>a = <span style="color: #BFEBBF;">5</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">add</span><span style="color: #DCDCCC;">(</span>a,b<span style="color: #DCDCCC;">)</span>
+<span class="linenr"> 4: </span>  a + b
+<span class="linenr"> 5: </span><span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span><span style="color: #F0DFAF; font-weight: bold;">class</span> <span style="color: #7CB8BB;">Cat</span>
+<span class="linenr"> 8: </span>  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">initialize</span><span style="color: #DCDCCC;">(</span>name, age<span style="color: #DCDCCC;">)</span>
+<span class="linenr"> 9: </span>    <span style="color: #DFAF8F;">@name</span> = name
+<span class="linenr">10: </span>    <span style="color: #DFAF8F;">@age</span>  = age
+<span class="linenr">11: </span>  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span>  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">meow</span>
+<span class="linenr">14: </span>    <span style="color: #DCDCCC; font-weight: bold;">puts</span> <span style="color: #CC9393;">"meow"</span>
+<span class="linenr">15: </span>  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span class="linenr">16: </span>
+<span class="linenr">17: </span>  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">old?</span>
+<span class="linenr">18: </span>    <span style="color: #DFAF8F;">@age</span> &gt; <span style="color: #BFEBBF;">15</span>
+<span class="linenr">19: </span>  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span class="linenr">20: </span>
+<span class="linenr">21: </span>  <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">describe</span>
+<span class="linenr">22: </span>    <span style="color: #F0DFAF; font-weight: bold;">if</span> old?
+<span class="linenr">23: </span>      <span style="color: #DCDCCC; font-weight: bold;">puts</span> name <span style="color: #CC9393;">" is an an old ass cat"</span>
+<span class="linenr">24: </span>    <span style="color: #F0DFAF; font-weight: bold;">else</span>
+<span class="linenr">25: </span>      <span style="color: #DCDCCC; font-weight: bold;">puts</span> <span style="color: #CC9393;">"Practically a kitty"</span>
+<span class="linenr">26: </span>    <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span class="linenr">27: </span>  <span style="color: #F0DFAF; font-weight: bold;">end</span>
+<span class="linenr">28: </span><span style="color: #F0DFAF; font-weight: bold;">end</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline16">
+<h3 id="orgheadline16">Clojure!</h3>
+<div class="org-src-container">
+
+<pre  class="src src-clojure"><span class="linenr">29: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">a</span> <span style="color: #BFEBBF;">5</span><span style="color: #DCDCCC;">)</span>
+<span class="linenr">30: </span>
+<span class="linenr">31: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defn</span> <span style="color: #93E0E3;">add</span> <span style="color: #BFEBBF;">[</span>a b<span style="color: #BFEBBF;">]</span>
+<span class="linenr">32: </span>  <span style="color: #BFEBBF;">(</span>+ a b<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="linenr">33: </span>
+<span class="linenr">34: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">defn</span> <span style="color: #93E0E3;">cat</span> <span style="color: #BFEBBF;">[</span>name age<span style="color: #BFEBBF;">]</span>
+<span class="linenr">35: </span>  <span style="color: #BFEBBF;">(</span><span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #D0BF8F;">[</span>old? <span style="color: #93E0E3;">(</span>&gt; age <span style="color: #BFEBBF;">15</span><span style="color: #93E0E3;">)</span><span style="color: #D0BF8F;">]</span>
+<span class="linenr">36: </span>    <span style="color: #D0BF8F;">{</span><span style="color: #BFEBBF;">:meow</span> <span style="color: #CC9393;">"meow"</span>
+<span class="linenr">37: </span>     <span style="color: #BFEBBF;">:describe</span> <span style="color: #93E0E3;">(</span><span style="color: #F0DFAF; font-weight: bold;">if</span> old?
+<span class="linenr">38: </span>                 <span style="color: #9FC59F;">(</span><span style="color: #F0DFAF; font-weight: bold;">fn</span> <span style="color: #94BFF3;">[]</span> <span style="color: #94BFF3;">(</span>str name <span style="color: #CC9393;">" is an old ass cat!"</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span>
+<span class="linenr">39: </span>                 <span style="color: #9FC59F;">(</span><span style="color: #F0DFAF; font-weight: bold;">fn</span> <span style="color: #94BFF3;">[]</span> <span style="color: #94BFF3;">(</span>str name <span style="color: #CC9393;">" is practically a kitty."</span><span style="color: #94BFF3;">)</span><span style="color: #9FC59F;">)</span><span style="color: #93E0E3;">)</span>
+<span class="linenr">40: </span>     <span style="color: #BFEBBF;">:old?</span> <span style="color: #93E0E3;">(</span><span style="color: #F0DFAF; font-weight: bold;">fn</span> <span style="color: #9FC59F;">[]</span> old?<span style="color: #93E0E3;">)</span> <span style="color: #D0BF8F;">}</span><span style="color: #BFEBBF;">)</span> <span style="color: #DCDCCC;">)</span>
+<span class="linenr">41: </span>
+<span class="linenr">42: </span>
+<span class="linenr">43: </span>
+<span class="linenr">44: </span><span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #DFAF8F;">mittens</span> <span style="color: #BFEBBF;">(</span>cat <span style="color: #CC9393;">"Mittens"</span> <span style="color: #BFEBBF;">16</span><span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span>
+<span class="linenr">45: </span>
+<span class="linenr">46: </span><span style="color: #DCDCCC;">(</span><span style="color: #BFEBBF;">(</span><span style="color: #BFEBBF;">:describe</span> mittens<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span> <span style="color: #7F9F7F;">;=&gt; "Mittens is an old ass cat!"</span>
 </pre>
 </div>
 </section>

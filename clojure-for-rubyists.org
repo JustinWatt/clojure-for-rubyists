@@ -1,5 +1,5 @@
 #+REVEAL_TRANS: none
-#+REVEAL_EXTRA_CSS: file:///Users/Justin/Repos/talks/style.css
+#+REVEAL_EXTRA_CSS: file:///Users/Justin/Repos/talks/clojure-for-rubyists/style.css
 #+OPTIONS: toc:0
 #+OPTIONS: reveal_center:t reveal_progress:t reveal_history:t reveal_control:t
 #+OPTIONS: reveal_mathjax:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t num:nil
@@ -7,25 +7,24 @@
 #+REVEAL_THEME: league
 #+REVEAL_HLEVEL: 999
 
-#+TITLE: Clojure for Rubyists!!
-#+AUTHOR: @JustinJWatt
+#+TITLE: Tour of Clojure
+#+AUTHOR: 
 #+EMAIL: 
 
 * Clojure
 - [[./img/cljlogo.png]]
+
 ** A LISP that targets the JVM
 - [[./img/jmccarthy.jpg]]
 
-
 ** Syntax Primer
   #+ATTR_REVEAL: :frag (appear)
-- src_ruby[:exports code]{puts("abc")}
-- src_clojure[:exports code]{(println "abc")}
+- src_ruby[:exports code]{add 1, 2}
+- src_ruby[:exports code]{add(1, 2)}
+- src_clojure[:exports code]{(+ 1 2)}
 - src_clojure[:exports code]{(function arg1 arg2)}
 
 * Functional Programming
-The building block of a functional programming language is the function.
-
 ** First Class Functions
 Can be passed into a function or returned from a function
 
@@ -40,11 +39,9 @@ Functions that take another function as a parameter
   - src_ruby[:exports code]{[1, 2, 3].map(&:next)}      
     {{{results(;=> =[2\, 3\, 4]=)}}}
 
-
-
 ** Immutable Data
-Any mutation of data is returned as a new value instead of mutating the original
-value.
+Instead of mutating a value in place, a new copy of the structure
+is created with the mutation applied
 
 #+ATTR_REVEAL: :frag (appear)
 - src_clojure[:exports code]{(def a 1)} 
@@ -54,6 +51,15 @@ value.
 - src_clojure[:exports code]{a} 
   {{{results(;=> =1=)}}}
 
+** Persistent Data Structures
+  - src_clojure[:exports code]{(def base-list [1 2 3])}
+   
+  - src_clojure[:exports code]{(def a-list (cons "a" base-list))}
+  - src_clojure[:exports code]{(def b-list (cons "b" base-list))}
+
+  - src_clojure[:exports code]{(identical? (rest a-list) (rest b-list))}
+    {{{results(;=> =true=)}}}
+
 ** Pure functions
 - Values In -> Values Out
 - No Side Effects
@@ -61,22 +67,50 @@ value.
 ** Referential Transparency 
 - A function can be substituted with it's value without affecting the program. 
 
-** Persistent Data Structures
-#+BEGIN_SRC clojure +n
+** s-expressions 
+#+ATTR_REVEAL: :frag (appear)
+- The primary unit of computation in Clojure is the s-expression.
 
-  (def base-list [1 2 3])
-  (def a-list (cons "a" base-list))
-  (def b-list (cons "b" base-list))
+- src_clojure[:exports code]{(function-name arg1 arg2 arg3)}
+ 
+- Functions are applied and the expressions reduce down to a single
+  value
+- Expressions are nested to achieve more complex effects
+    - src_clojure[:exports code]{(reduce + (filter odd? (map inc [1 2 3 4])))}
+    - src_clojure[:exports code]{(reduce + (filter odd? [2 3 4 5]))}
+    - src_clojure[:exports code]{(reduce + [3 5])}
+    - src_clojure[:exports code]{8}
   
-  (= (rest a-list) (rest b-list))
-  (identical? (rest a-list) (rest b-list))
+** Transducers
+#+BEGIN_SRC clojure
+(->> [1 2 3 4]
+     (map inc)
+     (filter odd?) 
+     (reduce +))
 #+END_SRC
 
-
-** s-expressions
-The primary unit of computation in clojure is an s-expression.
-
-
+** Data Structures
+#+ATTR_REVEAL: :frag (appear)
+- List: '(1 2 3 4)
+  - Items are added to the front of a list
+- Vector: src_clojure[:exports code]{([1 2 3 4] 0)}
+  - {{{results(;=> 1)}}}
+- Map: {:id 1 :name "Cen Cal Ruby"}
+  - src_clojure[:exports code]{ (:name {:id 1 :name "Cen Cal Ruby"})}
+  - {{{results(;=> "Cen Cal Ruby")}}}
+- Set: #{ :this :is :a :set }
+  
+** The Good
+- s-expressions
+- Tooling
+- the JVM
+- Really active community
+- Excellent support for asynchronous programming
+- Clojurescript!
+  
+** The Bad
+- the JVM
+- Documentation is a struggle
 
 ** Ruby!
 #+BEGIN_SRC ruby +n
@@ -113,12 +147,12 @@ The primary unit of computation in clojure is an s-expression.
 
 ** Clojure!
 #+BEGIN_SRC clojure +n 
-(def a 5)
+  (def a 5)
 
-(defn add [a b]
-  (+ a b))
-  
-(defn cat [name age]
+  (defn add [a b]
+    (+ a b))
+
+  (defn cat [name age]
     (let [old? (> age 15)]
       {:meow "meow"
        :describe (if old?
@@ -128,9 +162,7 @@ The primary unit of computation in clojure is an s-expression.
 
 
 
-(def mittens (cat "Mittens" 16))
+  (def mittens (cat "Mittens" 16))
 
-((:describe mittens))
-
-
+  ((:describe mittens)) ;=> "Mittens is an old ass cat!"
 #+END_SRC

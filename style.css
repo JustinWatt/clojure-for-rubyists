@@ -3,3 +3,7 @@ ul li {
 }
 
 li>p { text-align: left;}
+
+.org-src-container {
+    font-size: 80px;
+}
